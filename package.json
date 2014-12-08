@@ -1,0 +1,16 @@
+{
+  "name": "Circles-for-Cities",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/JJdeGroot/Circles-for-Cities"
+  },
+  "version": "0.0.1",
+  "private": false,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "connect": "*",
+    "serve-static": "*"
+  }
+}
