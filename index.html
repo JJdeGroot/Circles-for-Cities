@@ -1,0 +1,36 @@
+<html>
+<head>
+	<title>Circles for Cities</title>
+	<link type="text/css" rel="stylesheet" href="css/style.css"/>
+	<script type="text/javascript" language="javscript" src="js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" language="javascript" src="js/workflow.js"></script>
+</head>
+
+<body>
+	<h1 class="header">Circles for Cities</h1>
+
+	<section id="map" class="slide">
+		<h2>Map</h2>
+		Please select your location on the map.
+	</section>
+
+	<section id="circle" class="slide">
+		<h2>Circle</h2>
+		Create a Circle of Sustainability.
+	</section>
+
+	<section id="report" class="slide">
+		<h2>Report</h2>
+		Click the button to generate a report based on your input.
+		<button id="generate" onclick="_generate();">Generate</button>
+
+		<div id="result">
+			<textarea id="code"></textarea>
+			<button id="close" onclick="_close();">X</button>
+		</div>
+	</section>
+
+
+
+</body>
+</html>
