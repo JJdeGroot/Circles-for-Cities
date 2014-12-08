@@ -1,8 +1,15 @@
 <html>
 <head>
 	<title>Circles for Cities</title>
-	<link type="text/css" rel="stylesheet" href="css/style.css"/>
-	<script type="text/javascript" language="javscript" src="js/jquery-1.11.1.min.js"></script>
+
+	<link type="text/css" rel="stylesheet"href="css/jquery-ui-1.8.20.custom.css"  />
+	<link type="text/css" rel="stylesheet" href="css/assessment.css"/>
+	<link type="text/css" rel="stylesheet" href="css/workflow.css"/>
+
+	<script type="text/javascript" language="javascript" src="js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" language="javascript" src="js/jquery-ui-1.8.20.custom.min.js"></script>
+	<script type="text/javascript" language="javascript" src="js/circle.js"></script>
+	<script type="text/javascript" language="javascript" src="js/assessment.js"></script>
 	<script type="text/javascript" language="javascript" src="js/workflow.js"></script>
 </head>
 
@@ -10,17 +17,59 @@
 	<h1 class="header">Circles for Cities</h1>
 
 	<section id="map" class="slide">
-		<h2>Map</h2>
+		<h2>1. Map</h2>
 		Please select your location on the map.
 	</section>
 
 	<section id="circle" class="slide">
-		<h2>Circle</h2>
+		<h2>2. Circle</h2>
 		Create a Circle of Sustainability.
+
+		<div>
+			<div id="control-panel">
+				<div>
+				  Show dialog<input type="checkbox" id="showDialog" name="showDialog" checked="checked"> 
+				</div>
+				  <div id="tooltip"></div>
+			</div>
+
+			<div id="circles">
+		    	<canvas id="assessmentCanvas" width="600" height="600" ></canvas>
+			</div>
+		</div>
+
+		<div id="assessmentDialog" style="display: none;">
+		    <div>
+		        <label for="assessDomain">Domain: </label>
+		        <span id="assessDomain"></span>
+		    </div>
+		    <div>
+		        <label for="assessSubdomain">Subdomain: </label>
+		        <span id="assessSubdomain"></span>
+		    </div>
+
+		    <div>Rate how sustainable you think your project is against this subdomain, on a scale of 1 (least sustainable) to 9 (most sustainable):</div>
+
+		    <div id="assessSlider">
+		    	<div class="scale-item"></div>
+		    	<div class="scale-item"></div>
+		    	<div class="scale-item"></div>
+		    	<div class="scale-item"></div>
+		    	<div class="scale-item"></div>
+		    	<div class="scale-item"></div>
+		    	<div class="scale-item"></div>
+		    	<div class="scale-item"></div>
+		    	<div class="scale-item"></div>
+		    	<div class="ui-slider-handle"></div> 
+		    </div>
+
+		    <div id="slider-value"></div>
+		</div>
+
 	</section>
 
 	<section id="report" class="slide">
-		<h2>Report</h2>
+		<h2>3. Report</h2>
 		Click the button to generate a report based on your input.
 		<button id="generate" onclick="_generate();">Generate</button>
 
