@@ -24,6 +24,7 @@
 
 <body>
 	<h1 class="header">Circles for Cities</h1>
+	<span class="caption">Create a useful report in just three simple steps.</span>
 
 	<section id="map" class="slide">
 		<h2>1. Map</h2>
@@ -58,13 +59,13 @@
 		<div>
 			<div id="control-panel">
 				<div>
-				  Show dialog<input type="checkbox" id="showDialog" name="showDialog" checked="checked"> 
+				  Show dialog<input type="checkbox" id="showDialog" name="showDialog"> 
 				</div>
 				  <div id="tooltip"></div>
 			</div>
 
 			<div id="circles">
-		    	<canvas id="circleCanvas" width="600" height="600" ></canvas>
+		    	<canvas id="circleCanvas" width="400" height="400" ></canvas>
 			</div>
 		</div>
 
@@ -100,7 +101,7 @@
 
 	<section id="report" class="slide">
 		<h2>3. Report</h2>
-		Click the button to generate a report based on your input.
+		Click the button to generate a report based on the map and circle above.
 		<button id="generate" onclick="_generate();">Generate</button>
 
 		<div id="result">
@@ -108,8 +109,6 @@
 			<button id="close" onclick="_close();">X</button>
 		</div>
 	</section>
-
-
 
 </body>
 </html>
