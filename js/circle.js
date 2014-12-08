@@ -1,4 +1,4 @@
-
+ 
 
 var CoS = CoS || {};
 
@@ -38,31 +38,15 @@ CoS.Knowledge =  [
     ];
 
 CoS.Process = [
-        { name: "COMMIT", description: "COMMIT: Affirm, Establish, Choose, Resource", color: "#ED1C24" },
-        { name: "ENGAGE", description: "ENGAGE: Consult, Entrust, Empower, Accord", color: "#F26522" },
-        { name: "ASSESS", description: "ASSESS: Determine, Analyse, Research, Project", color: "#F7941E" },
-        { name: "DEFINE", description: "DEFINE: Clarify, Identify, Refine, Review", color: "#FFC20E" },
-        { name: "IMPLEMENT", description: "IMPLEMENT: Authorize, Enable, Liaise, Revise", color: "#FFF200" },
-        { name: "MEASURE", description: "MEASURE: Monitor, Document, Reassess, Evaluate", color: "#CBDB2A" },
-        { name: "COMMUNICATE", description: "COMMUNICATE: Translate, Publicize, Report, Advise", color: "#8DC63F" }
+        { name: "COMMIT", subdomains: [], description: "COMMIT: Affirm, Establish, Choose, Resource", color: "#ED1C24" },
+        { name: "ENGAGE", subdomains: [], description: "ENGAGE: Consult, Entrust, Empower, Accord", color: "#F26522" },
+        { name: "ASSESS", subdomains: [], description: "ASSESS: Determine, Analyse, Research, Project", color: "#F7941E" },
+        { name: "DEFINE", subdomains: [], description: "DEFINE: Clarify, Identify, Refine, Review", color: "#FFC20E" },
+        { name: "IMPLEMENT", subdomains: [], description: "IMPLEMENT: Authorize, Enable, Liaise, Revise", color: "#FFF200" },
+        { name: "MEASURE", subdomains: [], description: "MEASURE: Monitor, Document, Reassess, Evaluate", color: "#CBDB2A" },
+        { name: "COMMUNICATE", subdomains: [], description: "COMMUNICATE: Translate, Publicize, Report, Advise", color: "#8DC63F" }
     ];
-
-CoS.Circle = function(ctx, config) {
-    // Configurable variables
-    var height = config.height || 100;
-    var width = config.width || 100;
-    var useSameArea = config.useSameArea === false ? false : true;
-    var drawText = config.drawText === false ? false : true;
-    var radiusProportion = typeof(config.radiusProportion) !== 'undefined' ? config.radiusProportion : 0.9;
-    var numCircles = config.numCircles || 9;
-    var values = config.values || [];
-    var rotation = typeof(config.rotation) !== 'undefined' ? config.rotation : 0;
-
-    this.domains = config.domains || CoS.Profile;
-    var domainCount = this.domains.length;
-    var subdomainCount = this.domains[0].subdomains.length;
-
-    var ratings = config.ratings || [
+CoS.DefaultRatings = [
         { label: "Critical", color: "#ED1C24" },
         { label: "Bad", color: "#F26522" },
         { label: "Highly Unsatisfactory", color: "#F7941E" },
@@ -92,12 +76,43 @@ CoS.Circle = function(ctx, config) {
     ];
     */
 
+CoS.Circle = function(ctx, config) {
+    this.randomValues = function() {
+      var values = new Array();
+      for (var i = 0; i < this.domains.length; i++) {
+          var domainValues = new Array();
+          for (var j = 0; j < this.domains[i].subdomains.length; j++) {
+            var extent = Math.ceil(Math.random() * numCircles);
+            domainValues.push(extent);
+          }
+          values.push(domainValues);
+      }
+      return values;
+    } 
+
+    // Configurable variables
+    this.domains = config.domains || CoS.Profile;
+    var domainCount = this.domains.length;
+    var subdomainCount = this.domains[0].subdomains.length;
+
+    var height = config.height || 100;
+    var width = config.width || 100;
+    var useSameArea = config.useSameArea === false ? false : true;
+    var drawText = config.drawText === false ? false : true;
+    var radiusProportion = typeof(config.radiusProportion) !== 'undefined' ? config.radiusProportion : 0.9;
+    var numCircles = config.numCircles || 9;
+  
+    var valuesRandomise = config.valuesRandomise || false;
+    var values = config.values || (valuesRandomise ? this.randomValues() : []);
+
+    var rotation = typeof(config.rotation) !== 'undefined' ? config.rotation : 0;
+    var ratings = config.ratings || CoS.DefaultRatings;
+
     // Computed variables
     var x = Math.floor(width / 2), y = Math.floor(y = height / 2);
     var radius = Math.floor(x * radiusProportion);
     var maxArea = Math.pow(radius, 2) * Math.PI;
     var axisLength = config.axisLength || 1;
-
 
     // Setup context
     ctx.lineWidth = config.lineWidth || 1;
@@ -181,6 +196,7 @@ CoS.Circle = function(ctx, config) {
     }
 
     this.drawCircles = function() {
+        ctx.beginPath();
         for (var i = numCircles; i > 0; i -= 1) {
             var newRad = radius * i / numCircles;
             if (useSameArea) {
@@ -330,7 +346,9 @@ CoS.Circle = function(ctx, config) {
     }
 };
 
-CoS.Process = function(ctx, config) {
+//CoS.Process = _.extend(CoS.Circle, 
+CoS.ProcessCircle = function(ctx, config) {
+    //CoS.Circle.call(this, ctx, config);
 
     // Configurable variables
     var height = config.height || 100;
@@ -353,6 +371,8 @@ CoS.Process = function(ctx, config) {
         { name: "COMMUNICATE", description: "COMMUNICATE: Translate, Publicize, Report, Advise", color: "#8DC63F" }
     ];
 
+    var ratings = config.ratings || CoS.DefaultRatings;
+
     // Computed variables
     var x = Math.floor(jQuery(ctx.canvas).width() / 2), y = Math.floor(jQuery(ctx.canvas).height() / 2);
     var radius = Math.floor(x * radiusProportion);
@@ -365,12 +385,6 @@ CoS.Process = function(ctx, config) {
     ctx.translate(x, y);
     ctx.rotate(rotation * Math.PI/180);
     ctx.translate(-x, -y);
-
-
-    this.refreshValues = function(vals) {
-        values = vals;
-        this.drawCircle();
-    }
 
 
     this.drawSegment = function(sector, extent) {
@@ -388,14 +402,6 @@ CoS.Process = function(ctx, config) {
         var quadFac = 0;
         var startAngle = Math.PI + Math.PI / (sectorCount * 2) * (quadFac * sectorCount + sector);
         var endAngle = startAngle + Math.PI / (sectorCount * 2);
-        var triangleEndAngle = endAngle - Math.PI / 14;
-        var meX = x + Math.sin(triangleEndAngle) * newRad; 
-        var meY = y + Math.cos(triangleEndAngle) * newRad; 
-        var feX = x + Math.sin(triangleEndAngle) * radius; 
-        var feY = y + Math.cos(triangleEndAngle) * radius; 
-        var aeX = x + Math.sin(triangleEndAngle - Math.PI / 30) * (newRad + (radius - newRad) / 2); 
-        var aeY = y + Math.cos(triangleEndAngle - Math.PI / 30) * (newRad + (radius - newRad) / 2); 
-
 
         ctx.beginPath();
         ctx.moveTo(x, y);
@@ -448,8 +454,6 @@ CoS.Process = function(ctx, config) {
         ctx.closePath();
         ctx.fillStyle = colour;
         ctx.fill();
-        // ctx.strokeStyle = "#000";
-        // ctx.stroke();
     }
 
     this.drawSegmentLines = function() {
@@ -560,7 +564,7 @@ CoS.Process = function(ctx, config) {
     }
 
 
-    this.drawProcessCircle = function() {
+    this.drawCircle = function() {
         // Draw segments lines
         ctx.clearRect(0, 0, width, height);
        for (var i = 0; i < phases.length; i++) {
@@ -582,7 +586,7 @@ CoS.Process = function(ctx, config) {
     }
 
     this.updateCircleSegment = function(domainId, subdomainId, extent) {
-        this.drawProcessCircle();
+        this.drawCircle();
     } 
 
     this.findSegment = function(eventX, eventY, callback) {
@@ -636,3 +640,4 @@ CoS.Process = function(ctx, config) {
     }
 };
 
+//CoS.ProcessCircle.prototype = new CoS.Circle;

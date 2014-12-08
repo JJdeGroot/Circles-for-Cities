@@ -17,33 +17,18 @@
 	<script type="text/javascript" language="javascript" src="js/workflow.js"></script>
 	<script>
 // Declare global variable
-var circle, canvas, numCircles = 9;
+var circle, canvas, numCircles = 2;
 
 $(document).ready(function() {
 	// Get the canvas
    canvas = $("#circleCanvas")[0];
    var ctx = canvas.getContext('2d');
 
-   var domains = CoS.Engagement;
-
-	 // Setup random data
-	 var values = new Array();
-    for (var i = 0; i < domains.length; i++) {
-        var domainValues = new Array();
-        for (var j = 0; j < domains[i].subdomains.length; j++) {
-        	var extent = Math.ceil(Math.random() * numCircles);
-        	domainValues.push(extent);
-        }
-        values.push(domainValues);
-    }
-
-
-   // Create the Assessment
-	 circle = new CoS.Circle(ctx, { 
-    domains: domains,
+	 circle = new CoS.ProcessCircle(ctx, { 
+    domains: CoS.Process,
 	 	width: 600, 
 	 	height: 600,
-	 	values:  values,
+	 	valuesRandomise:  true,
 	 	numCircles: numCircles,
 	 	drawText: true,
 	 	axisLength: 1.2,
