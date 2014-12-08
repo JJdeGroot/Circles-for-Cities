@@ -59,6 +59,8 @@ CoS.Circle = function(ctx, config) {
     var rotation = typeof(config.rotation) !== 'undefined' ? config.rotation : 0;
 
     this.domains = config.domains || CoS.Profile;
+    var domainCount = this.domains.length;
+    var subdomainCount = this.domains[0].subdomains.length;
 
     var ratings = config.ratings || [
         { label: "Critical", color: "#ED1C24" },
@@ -121,12 +123,12 @@ CoS.Circle = function(ctx, config) {
             var newArea = maxArea * extent / numCircles;
             newRad = Math.pow(newArea / Math.PI, 1/2);
         }
-        var startArcX = x + Math.sin(quadFac * sector  / 7) * dirFac * newRad;
-        var startArcY = y + Math.cos(quadFac * sector  / 7) * dirFac * newRad;
-        var endArcX = x + Math.sin(quadFac * (sector + 1) / 7) * dirFac * newRad;
-        var endArcY = y + Math.cos(quadFac * (sector + 1)  / 7) * dirFac * newRad;
-        var startAngle = Math.PI + Math.PI / 14 * (quadrant * 7 + sector);
-        var endAngle = startAngle + Math.PI / 14;
+        var startArcX = x + Math.sin(quadFac * sector  / subdomainCount) * dirFac * newRad;
+        var startArcY = y + Math.cos(quadFac * sector  / subdomainCount) * dirFac * newRad;
+        var endArcX = x + Math.sin(quadFac * (sector + 1) / subdomainCount) * dirFac * newRad;
+        var endArcY = y + Math.cos(quadFac * (sector + 1)  / subdomainCount) * dirFac * newRad;
+        var startAngle = Math.PI + Math.PI / (subdomainCount * 2) * (quadrant * subdomainCount + sector);
+        var endAngle = startAngle + Math.PI / (subdomainCount * 2);
 
 
         ctx.beginPath();
@@ -148,7 +150,7 @@ CoS.Circle = function(ctx, config) {
     this.drawSegmentLines = function() {
         ctx.beginPath();
         var moduloFactor = this.domains.length;
-        for (var i = 0; i < 4; i ++) {
+        for (var i = 0; i < domainCount; i ++) {
             var quadFac = Math.PI;
             var dirFac = 1;
             switch(i) {
@@ -167,9 +169,9 @@ CoS.Circle = function(ctx, config) {
                     quadFac /= 2;
                     break;
             }
-            for (var j = 1; j < 7; j ++) {
+            for (var j = 1; j < subdomainCount; j ++) {
                 ctx.moveTo(x, y);
-                ctx.lineTo(x + Math.sin(quadFac * j  / 7) * dirFac * radius, y + Math.cos(quadFac * j  / 7) * dirFac * radius);
+                ctx.lineTo(x + Math.sin(quadFac * j  / subdomainCount) * dirFac * radius, y + Math.cos(quadFac * j  / subdomainCount) * dirFac * radius);
             }
         }
         ctx.closePath();
@@ -306,7 +308,7 @@ CoS.Circle = function(ctx, config) {
                     break;
             }
             var currentDomain = this.domains[quadrant];
-            var subdomainId = Math.floor((angle / 360) * (4 * 7)) % 7;
+            var subdomainId = Math.floor((angle / 360) * (domainCount * subdomainCount)) % subdomainCount;
             var currentSubdomain = currentDomain.subdomains[subdomainId];
             oldValue = values[quadrant][subdomainId];
             var newValue = Math.floor((hypotenuse / radius) * numCircles) + 1;
