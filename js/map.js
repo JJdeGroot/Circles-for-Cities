@@ -64,6 +64,7 @@ function initialiseMaps() {
 
 
 function placeMarker(position, map) {
+    $('#city-contents').html('<tr><td>Results</td><td>Loading...</td></tr>');
     var lat = position.lat();
     var lng = position.lng();
     var pos = new google.maps.LatLng(lat, lng);
@@ -94,20 +95,28 @@ function placeMarker(position, map) {
                             }
                             else {
                                 alert(err);
+                                noResults();
                             }
                         });
                     }
                     else {
                         console.log('No results found');
+                        noResults();
                     }
                 }
             } else {
                 console.log('No results found');
+                noResults();
             }
         } else {
             console.log('Geocoder failed due to: ' + status);
+            noResults();
         }
     });
+}
+
+function noResults() {
+    $('#city-contents').html('<tr><td>Results</td><td>None</td></tr>');
 }
 
 var clearOverlays = function() {

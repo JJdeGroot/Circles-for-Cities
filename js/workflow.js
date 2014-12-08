@@ -4,10 +4,11 @@ function _generate() {
 	var circle = "<div>Circle<br/>blablabla<br/>blablabla</div>";
 
 	$("#code").text(map+circle);
-	$("#result").show("slow");
+	$("html, body").animate({ scrollTop: $(document).height() });
+	$("#result").show(500);
 }
 
 /** Closes the result div */
 function _close() {
-	$("#result").hide("slow");
+	$("#result").hide(500);
 }
