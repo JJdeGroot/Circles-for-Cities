@@ -1,11 +1,16 @@
 /** Generates and shows the result */
 function _generate() {
-	var map = "<div>Map<br/>blablabla<br/>blablabla</div>";
-	var circle = "<div>Circle<br/>blablabla<br/>blablabla</div>";
+	var html = $("#rightcol").html();
 
-	$("#code").text(map+circle);
+	$("#code").text(html);
 	$("html, body").animate({ scrollTop: $(document).height() });
 	$("#result").show(500);
+
+	// Canvas to Image
+	var imageURL = document.getElementById('circleCanvas').toDataURL("image/png");
+	console.log(imageURL);
+	$("#result").append('<a href="'+imageURL+'" target="_blank">Download circle (right click --> save as)</a>');
+
 }
 
 /** Closes the result div */
