@@ -11,12 +11,14 @@
 	<!-- External JS -->
 	<script type="text/javascript" language="javascript" src="js/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" language="javascript" src="js/jquery-ui-1.8.20.custom.min.js"></script>
+	<script type="text/javascript" language="javascript" src="js/jquery.parse/jquery.parse.min.js"></script>
 	<script type="text/javascript" language="javascript" src="js/underscore-min.js"></script>
     <script type="text/javascript" language="javascript" src="js/less-1.3.0.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization"></script>
     
     <!-- Custom JS -->
     <script type="text/javascript" language="javascript" src="js/map.js"></script>
+    <script type="text/javascript" language="javascript" src="js/rankings.js"></script>
 	<script type="text/javascript" language="javascript" src="js/circle.js"></script>
 	<script type="text/javascript" language="javascript" src="js/circle-ui.js"></script>
 	<script type="text/javascript" language="javascript" src="js/workflow.js"></script>
@@ -49,6 +51,81 @@
             <div id="centercol">
                 <div id="map-container">
                     <div id="map-canvas"></div>
+                </div>
+
+                <div>
+                	    <div id="nav">
+									      <div id="div_show_results">
+									        <div>Show results by:
+									        </div>
+									        <div>
+									          <select id="showResults" name="results">
+									            <option value="0">Homicide Rates (2013)</option>
+									            <option value="1">Fastest Growing Cities</option>
+									            <option value="2">Monocle's Most Livable City Index (2014) </option>
+									            <option value="3">The EIU's Liveability Ranking (2013)</option>
+									            <option value="4">Mercer Quality of Living Survey (2014)</option>
+									            <option value="5">UBS's Richest Cities (2012)</option>
+									            <option value="6">Siemen's Green Cities Index (2011)</option>
+									            <option value="7">Global Cities Index (2014)</option>
+									            <option value="8">Population - city proper (2014)</option>
+									            <option value="9">Population - urban area (2014)</option>
+									          </select>
+									        </div>
+									      </div>
+									      <div id="div_calc_results">
+									        <div>Calculate results by:
+									        </div>
+									        <div>
+									          <select id="calculateResults" name="calcResults">
+									            <option value="0">As is</option>
+									            <option value="1">Exponent of 2</option>
+									            <option value="2">Log</option>
+									          </select>
+									        </div>
+									      </div>
+									      <div id="div_size_of_heat_island">
+									        <div>Size of heat island:
+									        </div>
+									        <div>
+									          <select id="heatIsland" name="heatIsland">
+									            <option value="1">1</option>
+									            <option value="2">2</option>
+									            <option value="3">3</option>
+									            <option value="4">4</option>
+									            <option value="5">5</option>
+									          </select>
+									        </div>
+									      </div>
+									      <div id="div_opacity_of_heat_island">
+									        <div>Opacity of heat island:
+									        </div>
+									        <div>
+									          <select id="opacity" name="opacity">
+									            <option value="1" selected="selected">1</option>
+									            <option value="0.8">0.8</option>
+									            <option value="0.6">0.6</option>
+									            <option value="0.4">0.4</option>
+									            <option value="0.2">0.2</option>
+									          </select>
+									        </div>
+									      </div>
+
+
+									      <div>
+									        <input id="showMarkers" type="checkbox" name="showMarkers">
+									        <span>Show Markers
+									        </span>
+									      </div>
+									      <div>
+									        <input id="showHeatmap" type="checkbox" name="showHeatmap" checked="checked">
+									        <span>Show Heat map
+									        </span>
+									      </div>
+									      <div>
+									        <input id="query" type="submit" name="query" value="Show Results">
+									      </div>
+									    </div>
                 </div>
             </div>
         </div>
