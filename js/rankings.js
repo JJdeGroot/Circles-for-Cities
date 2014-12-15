@@ -21,6 +21,7 @@ var     coordindates,
 // Load the Google map
 initializeMap = function() {
     geocoder = new google.maps.Geocoder();
+    /*
     var mapOptions = {
         zoom: 2,
 //        center: new google.maps.LatLng(-34.5976, -58.383),
@@ -28,6 +29,7 @@ initializeMap = function() {
         mapTypeId: google.maps.MapTypeId.SATELLITE
     };
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    */
 }
 
 
