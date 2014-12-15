@@ -65,6 +65,8 @@ function initialiseMaps() {
 
 function placeMarker(position, map) {
     $('#city-contents').html('<tr><td>Results</td><td>Loading...</td></tr>');
+    $("#map-info").html("Loading...");
+
     var lat = position.lat();
     var lng = position.lng();
     var pos = new google.maps.LatLng(lat, lng);
@@ -117,6 +119,7 @@ function placeMarker(position, map) {
 
 function noResults() {
     $('#city-contents').html('<tr><td>Results</td><td>None</td></tr>');
+    $("#map-info").html("No results");
 }
 
 var clearOverlays = function() {
@@ -146,7 +149,11 @@ var handleNoGeolocation = function(errorFlag) {
 
 
 var getCityData = function(city, func) {
-    $.get(sparqlQuery(city), function(result) { processResults(result, func); });
+    $.get(sparqlQuery(city), function(result) { 
+        processResults(result, func); 
+    }).fail(function() {
+        noResults();
+    });
 }
 
 var sparqlQuery = function(city) {
@@ -165,10 +172,13 @@ var processResults = function(result, func) {
     ];
     var preferredLanguage = "en";
     var list = result.results.bindings;
-    if (list && !_.isUndefined(list)) {
-
-
+    console.log(list);
+    if (list && !_.isUndefined(list) && list.length > 0) {
+        // Empty info
         $('#city-contents').empty();
+        $("#map-info").empty();
+
+        var data = {};
         _.forEach(list, function(predicate) {
             var o = predicate.o, p = predicate.p;
             var display = true;
@@ -176,12 +186,24 @@ var processResults = function(result, func) {
                 display = false;
             if (o['xml:lang'] && o['xml:lang'] != preferredLanguage)
                 display = false;
-            if (display)
-                displayLine(p, o);
+            if (display) {
+                // Determine key & value
+                var key = stripUrl(p.value);
+                var value = o.value;
+                if (o.value.indexOf('http') == 0)
+                    value = '<a href="' + value + '" target="_blank">' + value + '</a>';
+
+                // Show
+                displayLine(key, value);
+                data[key] = value;
+            }
         });
+        console.log("DATA");
+        console.log(data);
+        displayInfo(data);
     }
     else {
-        func("No results found");
+        noResults();
     }
 }
 
@@ -195,16 +217,47 @@ var stripUrl = function(url) {
     return url;
 };
 
-var displayLine = function(p, o) {
-    var dispO = o.value, dispP = stripUrl(p.value);
-    var objLink = dispO;
-    if (o.value.indexOf('http') == 0)
-        objLink = '<a href="' + dispO + '" target="_blank">' + dispO + '</a>';
-    $('#city-contents').append('<tr><td>' + dispP + '</td><td>'+ objLink + '</td></tr>');
-
+var displayLine = function(key, value) {
+    $('#city-contents').append('<tr><td>' + key + '</td><td>'+ value + '</td></tr>');
 };
 
 
+var displayInfo = function(data) {
+    var name = data["name"];
+    if(name !== undefined) {
+        addInfo("<h1>"+name+"</h1>");
+    }
+
+    var homepage = data["homepage"];
+    if(homepage !== undefined) {
+        addInfo("Website: " + homepage);
+    }
+
+    var nickname = data["nickname"];
+    if(nickname !== undefined) {
+        addInfo("<h4>\""+nickname+"\"</h4>");
+    }
+
+    var motto = data["motto"];
+    if(motto !== undefined) {
+        addInfo("<q>"+motto+"</q>");
+    }
+
+    var point = data["point"];
+    if(point !== undefined) {
+        addInfo("Lat/Long: " + point);
+    }
+
+    var abstract = data["abstract"];
+    if(abstract !== undefined) {
+        addInfo(abstract);
+    }
+}
+    
+
+var addInfo = function(text) {
+    $("#map-info").append("<div class='block'>"+text+"</div>");
+}
 
 google.maps.event.addDomListener(window, 'load', initialiseMaps);
 
