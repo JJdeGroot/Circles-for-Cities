@@ -33,21 +33,17 @@
 		<h2>1. Map</h2>
 		Please select your location on the map.
 
+        <!-- Map wrapper -->
         <div id="map-wrapper">
             <div id="rightcol">
-                <!-- Map information -->
-            	<div id="map-info"></div>
-
-                <table id="city-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Value</th>
-                        </tr>
-                    </thead>
-                    <tbody id="city-contents">
+                <!-- Search results table -->
+                <table id="search-table">
+                    <tbody id="search-contents">
                     </tbody>
                 </table>
+                
+                <!-- Map information -->
+            	<div id="map-info"></div>
             </div>
 
             <div id="centercol">
@@ -132,6 +128,18 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Wikipedia results table -->
+        <table id="city-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody id="city-contents">
+            </tbody>
+        </table>
 	</section>
 
     <!-- Circle of Sustainability -->

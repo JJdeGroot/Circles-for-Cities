@@ -202,14 +202,17 @@ hookUpListeners = function() {
 
 listCities = function(values) {
     var cities = _.chain(values).pairs().sortBy(1).value();
-    var cityContent = $('#city-contents'), counter = 0;
-    cityContent.empty();
-    cityContent.append("<tr><th>City</th><th>Ranking</th></tr>")
+    
+    var searchContent = $('#search-contents'), counter = 0;
+    searchContent.empty();
+    searchContent.append("<tr><th>City</th><th>Ranking</th></tr>")
     cities.forEach(function(cityRow) {
-        cityContent.append("<tr><td><div id='city-"  + counter + "'>" + cityRow[0] + "</td><td>" + cityRow[1] + "</td></tr>")
+        searchContent.append("<tr><td><div id='city-"  + counter + "'>" + cityRow[0] + "</td><td>" + cityRow[1] + "</td></tr>")
         $('#city-' + counter).click(respondToCity);
         counter++;
-    })
+    });
+    
+    $('#map-info').html("Loading...");
 }
 
 parseCSV = function() {

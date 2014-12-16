@@ -26,6 +26,9 @@ function initialiseMaps() {
 }
 
 function respondToCity(e) {
+    $('#search-contents').empty();
+    $('#map-info').html("Loading...");
+    
     var city = e.target.innerText;
     console.log(city)
     getCityData(city, function(err) {
@@ -43,18 +46,21 @@ function respondToCity(e) {
 }
 
 function showCities(components) {
+    $('#search-contents').empty();
     var listBuilder = '', counter = 0;
+    
     components.forEach(function(component) {
-        $('#city-contents').append('<tr><td>Address</td><td><div id="city-' + counter + '">' + component + '</div></td></tr>')
-        $('#city-' + counter).click(respondToCity);
+        $('#search-contents').append('<tr><td>Address</td><td><div id="search-' + counter + '">' + component + '</div></td></tr>')
+        $('#search-' + counter).click(respondToCity);
         counter ++;
     });
 }
 
 
 function placeMarker(position, map) {
-    $('#city-contents').html('<tr><td>Results</td><td>Loading...</td></tr>');
-    $("#map-info").html("Loading...");
+    $('#search-contents').html("<td>Loading...</td></td></td>");
+    $('#city-contents').empty();
+    $("#map-info").empty();
 
     var lat = position.lat();
     var lng = position.lng();
