@@ -44,8 +44,9 @@ function respondToCity(e) {
 
 function showCities(components) {
     var listBuilder = '', counter = 0;
+    $('#city-contents').empty();
     components.forEach(function(component) {
-        $('#city-contents').append('<tr><td>Address</td><td><div id="city-' + counter + '">' + component + '</div></td></tr>')
+        $('#city-contents').append('<tr><td>Spatial unit:</td><td><div class="city-link" id="city-' + counter + '">' + component + '</div></td></tr>')
         $('#city-' + counter).click(respondToCity);
         counter ++;
     });
@@ -64,7 +65,6 @@ function placeMarker(position, map) {
     clearOverlays();
     geocoder.geocode({'latLng': latlng}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            console.log(results)
             if (results[2]) {
                 // if (results[2].address_components[1]) {
                     var marker = new google.maps.Marker({
@@ -153,7 +153,6 @@ var processResults = function(result, func) {
     ];
     var preferredLanguage = "en";
     var list = result.results.bindings;
-    console.log(list);
     if (list && !_.isUndefined(list) && list.length > 0) {
         // Empty info
         $('#city-contents').empty();
@@ -179,8 +178,6 @@ var processResults = function(result, func) {
                 data[key] = value;
             }
         });
-        console.log("DATA");
-        console.log(data);
         displayInfo(data);
     }
     else {

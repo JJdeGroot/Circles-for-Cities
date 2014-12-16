@@ -21,15 +21,6 @@ var     coordindates,
 // Load the Google map
 initializeMap = function() {
     geocoder = new google.maps.Geocoder();
-    /*
-    var mapOptions = {
-        zoom: 2,
-//        center: new google.maps.LatLng(-34.5976, -58.383),
-        center: new google.maps.LatLng(15, 10),
-        mapTypeId: google.maps.MapTypeId.SATELLITE
-    };
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-    */
 }
 
 
@@ -206,7 +197,7 @@ listCities = function(values) {
     cityContent.empty();
     cityContent.append("<tr><th>City</th><th>Ranking</th></tr>")
     cities.forEach(function(cityRow) {
-        cityContent.append("<tr><td><div id='city-"  + counter + "'>" + cityRow[0] + "</td><td>" + cityRow[1] + "</td></tr>")
+        cityContent.append("<tr><td><div class='city-link' id='city-"  + counter + "'>" + cityRow[0] + "</td><td>" + cityRow[1] + "</td></tr>")
         $('#city-' + counter).click(respondToCity);
         counter++;
     })
