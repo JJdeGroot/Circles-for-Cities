@@ -7,13 +7,56 @@ CoS.domainColour = '#55b496';
 
 
 CoS.Profile = [ 
-        { name: 'Economics', subdomains: ["Wealth & Distribution", "Technology & Infrastructure", "Labour & Welfare", "Consumption & Use", "Accounting & Regulation", "Exchange & Transfer", "Production & Resourcing"] },
+        { name: 'Economics', 
+            subdomains: ["Wealth & Distribution", "Technology & Infrastructure", "Labour & Welfare", "Consumption & Use", "Accounting & Regulation", "Exchange & Transfer", "Production & Resourcing"],
+            questions: [
+                "Is the wealth of the urban area sustainable; and is it distributed in way that benefits all?",
+                "To what extent is basic infrastructure in urban area appropriate and supportive of a broad cross section of needs?",
+                "How sustainable are the conditions of work across the urban area?",
+                "How sustainable are the current consumption patterns of the urban area?",
+                "How robust are the various accounting and regulatory frameworks in the urban area?",
+                "How sustainable is the current movement of money, goods and services into and through the urban area?",
+                "How sustainable are the broad patterns of production and resource access in the urban area?",
+            ]
+         },
 
-        { name: 'Ecology', subdomains: ["Materials & Energy", "Water & Air", "Flora & Fauna", "Habitat & Settlements", "Built Form & Transport", "Embodiment & Sustenance", "Emission & Waste"] }, 
+        { name: 'Ecology', 
+            subdomains: ["Materials & Energy", "Water & Air", "Flora & Fauna", "Habitat & Settlements", "Built Form & Transport", "Embodiment & Sustenance", "Emission & Waste"] ,
+            questions: [
+                "How sustainable is energy production for the urban area?",
+                "How sustainable are the levels of air quality and water quality in the urban environment?",
+                "To what extent is biodiversity sustainable across the urban region?",
+                "How well does the urban area relate ecologically to the landscape on which it is built?",
+                "Does the form of the urban area and its transport system support sustainable living?",
+                "How sustainable is the urban area in supporting the physical health of people? "
+            ]
+        }, 
 
-        { name: 'Culture', subdomains: ["Identity & Engagement", "Creativity & Recreation", "Memory & Projection", "Belief & Ideas", "Gender & Generations", "Enquiry & Learning", "Wellbeing & Health"] }, 
+        { name: 'Culture', 
+            subdomains: ["Identity & Engagement", "Creativity & Recreation", "Memory & Projection", "Belief & Ideas", "Gender & Generations", "Enquiry & Learning", "Wellbeing & Health"] ,
+            questions: [
+                "Does the urban area have a positive cultural identity that brings people together over and above the various differences in their individual identities?",
+                "How sustainable are creative pursuits in the urban area – including sporting activities and creative leisure activities?",
+                "How well does the urban area deal with its history in relation to projecting visions of possible alternative futures?",
+                "Do residents of the urban area have a strong sense of purpose and meaning?",
+                "To what extent is there gender and generational well-being across different groups?",
+                "How sustainable is formal and informal learning in the urban region?",
+                "What is the general level of well-being across different groups of residents?",
+            ]
+        }, 
         
-        { name: 'Politics', subdomains: ["Ethics & Accountability", "Dialogue & Reconciliation", "Security & Accord", "Representation & Negotiation", "Communication & Critique", "Law & Justice", "Organization & Governance"        ] }
+        { name: 'Politics', 
+            subdomains: ["Ethics & Accountability", "Dialogue & Reconciliation", "Security & Accord", "Representation & Negotiation", "Communication & Critique", "Law & Justice", "Organization & Governance"] ,
+            questions: [
+                "How ethical is social life in the urban area?",
+                "Is meaningful dialogue possible between groups with signifi cant political difference in the urban area?",
+                "How secure and peaceful is the urban area?",
+                "How well are citizens of the urban area represented politically?",
+                "How sustainable is social communication access in the urban area?",
+                "How well does the dominant legal system work?",
+                "How well does the current system of governance function to maximize benefi ts for all?",
+            ]
+        }
         ];
 
 

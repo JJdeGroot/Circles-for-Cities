@@ -1,12 +1,10 @@
 // Declare global variable
-var circle, canvas, numCircles = 9;
+var circle, canvas, numCircles = 9, domains = CoS.Profile, slider, currentSubdomainId, requireSlider = true;
 
 $(document).ready(function() {
 	// Get the canvas
    canvas = $("#circleCanvas")[0];
    var ctx = canvas.getContext('2d');
-
-   var domains = CoS.Engagement;
 
 	 // Setup random data
 	 var values = new Array();
@@ -22,8 +20,8 @@ $(document).ready(function() {
    // Create the Assessment
 	 circle = new CoS.Circle(ctx, { 
     domains: domains,
-	 	width: 400, 
-	 	height: 400,
+	 	width: 600, 
+	 	height: 600,
 	 	values:  values,
 	 	numCircles: numCircles,
 	 	drawText: true,
@@ -38,12 +36,8 @@ $(document).ready(function() {
 
     // Create the slider
     var currentVal = Math.ceil(numCircles / 2);
-   $('#circleSlider').slider({ 
-   		min: 1, max: 12, value: Math.ceil(numCircles / 2), step: 1,
-   		slide: function(event, ui) {
-      	$("#slider-value").html(circle.getRatingText(ui.value - 1));
-  		}
-   	});
+
+   $('#circleSlider').slider();
 
    // Add colors to slider
    var colours = $(".scale-item");
@@ -64,7 +58,8 @@ function addHandler() {
     });
     canvas.addEventListener('mousemove', function(e){
         var point = determinePoint(e);
-        circle.findSegment(point.x, point.y, showSubdomain);
+        if (_.isUndefined( currentSubdomainId ) )
+          circle.findSegment(point.x, point.y, showSubdomain);
     });
 }
 
@@ -74,43 +69,36 @@ var determinePoint = function(e) {
 }
 
 var updateSegment = function(domainId, domainName, subdomainId, subdomainName, oldValue, newValue) {
-    if ($('#showDialog').is(':checked')) {
-        showCircleDialog(domainId, domainName, subdomainId, subdomainName, oldValue, newValue);
+    // if ($('#showDialog').is(':checked')) {
+    if (requireSlider) {
+        currentSubdomainId = subdomainId;
+        showSubdomain(domainId, domainName, subdomainId, subdomainName, oldValue, newValue);
     }
     else {
         drawSegment(domainId, domainName, subdomainId, subdomainName, oldValue, newValue);
     }
 }
 
-var showCircleDialog = function (domainId, domainName, subdomainId, subdomainName, oldValue, newValue) {
-    $('#circleDomain').html(domainName);
-    $('#circleSubdomain').html(subdomainName);
-     $('#circleDialog').dialog({
-         autoOpen: false,
-         buttons: {
-             "OK": function() {
-                 var val = ($('#circleSlider').slider( "option", "value" ));
-                 if (val > 9)
-                 		val = 9;
-                 $(this).dialog('close');
-                 drawSegment(domainId, domainName, subdomainId, subdomainName, oldValue, val);
-             },
-             "Cancel": function() {
-                 $(this).dialog('close');
-             }
-         }
-     });
-  $('#circleSlider').slider({ min: 1, max: numCircles + 1, value: oldValue, step: 1 });
-    $("#slider-value").html(circle.getRatingText(oldValue - 1));
-
-    $('#circleDialog').dialog('open');
-}
-
 var drawSegment = function (domainId, domainName, subdomainId, subdomainName, oldValue, newValue) {
-   // saveAssessment(extent);
    circle.updateCircleSegment(domainId, subdomainId, newValue);
 }
 
 var showSubdomain = function (domainId, domainName, subdomainId, subdomainName, oldValue, newValue) {
-	$("#tooltip").html(domainName + ": " + subdomainName);
+    $('#circleDomain').html(domainName);
+    $('#circleSubdomain').html(subdomainName);
+    $('#question').html(domains[domainId].questions[subdomainId]);
+    $('#circleSlider').slider({ 
+        min: 1, 
+        max: numCircles + 1, 
+        value: oldValue, 
+        step: 1,
+        slide: function( event, ui ) {
+          if (ui.value > numCircles)
+            ui.value = numCircles;
+          drawSegment(domainId, domainName, subdomainId, subdomainName, oldValue, ui.value);
+          $("#slider-value").html(circle.getRatingText(ui.value - 1));
+          currentSubdomainId = undefined;
+        }
+      });
+
 }

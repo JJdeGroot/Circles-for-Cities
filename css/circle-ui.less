@@ -1,25 +1,39 @@
 label {
 	font-weight: bold;
 }
-
-#assessmentDialog > div {
+#circle-wrapper {
+	margin-top: 10px;
+	display: inline-block;
+	width: 100%;
+}
+#circleDialog > div {
+  position: relative;
+  overflow: auto;
 	margin-bottom: 1em;
+	width: calc(100% - 600px);
+}
+
+#circleAssess {
+  position: relative;
+  overflow: auto;
+	min-width: 600px;
+	max-width: 600px;
+	float: left;
 }
 
 #circles {
 	margin: 0 auto;
-	text-align: center;
 }
 
-#assessmentCanvas {
+#circleCanvas {
 	display: block;
 	margin-left: auto;
     margin-right: auto;
 }
 
 #control-panel {
-	text-align: center;
 	margin-top: 20px;
+	font-size: 80%;
 }
 
 .ui-slider {
