@@ -56,7 +56,7 @@
                 <div>
                     <div id="nav">
                       <div id="div_show_results">
-                        <div>Show results by:
+                        <div>List city rankings:
                         </div>
                         <div>
                           <select id="showResults" name="results">
@@ -73,31 +73,31 @@
                           </select>
                         </div>
                       </div>
-                      <div id="div_calc_results">
+                      <div id="div_calc_results" style="display: none;">
                         <div>Calculate results by:
                         </div>
                         <div>
                           <select id="calculateResults" name="calcResults">
                             <option value="0">As is</option>
                             <option value="1">Exponent of 2</option>
-                            <option value="2">Log</option>
+                            <option value="2" selected="selected">Log</option>
                           </select>
                         </div>
                       </div>
-                      <div id="div_size_of_heat_island">
+                      <div id="div_size_of_heat_island" style="display: none;">
                         <div>Size of heat island:
                         </div>
                         <div>
                           <select id="heatIsland" name="heatIsland">
                             <option value="1">1</option>
                             <option value="2">2</option>
-                            <option value="3">3</option>
+                            <option value="3" selected="selected">3</option>
                             <option value="4">4</option>
                             <option value="5">5</option>
                           </select>
                         </div>
                       </div>
-                      <div id="div_opacity_of_heat_island">
+                      <div id="div_opacity_of_heat_island" style="display: none;">
                         <div>Opacity of heat island:
                         </div>
                         <div>
@@ -112,14 +112,12 @@
                       </div>
 
                       <div>
-                        <input id="showMarkers" type="checkbox" name="showMarkers">
-                        <span>Show Markers
-                        </span>
+                        <input id="showMarkers" type="checkbox" name="showMarkers" checked="checked">
+                        <span>Show Markers</span>
                       </div>
-                      <div>
+                      <div style="display: none;">
                         <input id="showHeatmap" type="checkbox" name="showHeatmap" checked="checked">
-                        <span>Show Heat map
-                        </span>
+                        <span>Show Heat map</span>
                       </div>
                       <div>
                         <input id="query" class="spaced" type="submit" name="query" value="Show Results">
