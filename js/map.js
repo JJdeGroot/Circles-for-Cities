@@ -25,26 +25,28 @@ function initialiseMaps() {
 
 }
 
+function respondToCity(e) {
+    var city = e.target.innerText;
+    console.log(city)
+    getCityData(city, function(err) {
+        if (!err) {
+            infowindow.setContent(city);
+            infowindow.open(map, marker);
+            map.setCenter(pos);
+            map.panTo(position);
+        }
+        else {
+            alert(err);
+            noResults();
+        }
+    });
+}
+
 function showCities(components) {
     var listBuilder = '', counter = 0;
     components.forEach(function(component) {
         $('#city-contents').append('<tr><td>Address</td><td><div id="city-' + counter + '">' + component + '</div></td></tr>')
-        $('#city-' + counter).click(function(e) {
-            var city = e.target.innerText;
-            console.log(city)
-            getCityData(city, function(err) {
-                if (!err) {
-                    infowindow.setContent(city);
-                    infowindow.open(map, marker);
-                    map.setCenter(pos);
-                    map.panTo(position);
-                }
-                else {
-                    alert(err);
-                    noResults();
-                }
-            });
-        })
+        $('#city-' + counter).click(respondToCity);
         counter ++;
     });
 }
