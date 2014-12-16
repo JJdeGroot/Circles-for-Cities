@@ -11,8 +11,7 @@ $(document).ready(function() {
             $('#generate').attr('disabled', 'disabled').addClass('disabled').val("Sending report...");
 
             // Generate HTML
-            var info = $("#rightcol").html();
-            var html = "<html><body><div>"+info+"</div></body></html>";
+            var html = $("#rightcol").html();
             var imageURL = document.getElementById('circleCanvas').toDataURL("image/png");
             
             // Perform request

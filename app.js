@@ -34,21 +34,25 @@ app.post('/mail', function (req, res) {
     req.on('end', function() {
         // Parse data
         var parameters = querystring.parse(body);
-        console.log("PARAMETERS");
-        console.log(parameters);
+        console.log("Parameters successfully parsed!");
+        //console.log(parameters);
         
         if(parameters.receiver !== undefined && parameters.html !== undefined && parameters.image !== undefined) {
-            // setup e-mail data with unicode symbols
+            // Attachments
+            var image = {filename: 'Circle of Sustainability', path: parameters.image};
+            var webpage =  {filename: 'report.html', content: "<html><body><div>"+parameters.html+"</div><div><img src='"+parameters.image+"'/></div></body></html>"};
+            
+            // Setup e-mail data
             var mailOptions = {
-                from: 'Circles of Sustainability <sustainabilitycircles2015@gmail.com>', // sender address
+                from: 'Circles of Sustainability <sustainabilitycircles2015@gmail.com>', // Sender address
                 to: parameters.receiver, // The receiver
                 subject: 'Your Circles of Sustainability report', // Subject
-                text: 'Plain text', // Plaintext body
+                text: parameters.html, // Plaintext body
                 html: parameters.html, // HTML body
-                attachments: [{filename: 'Circle of Sustainability', path: parameters.image}] // Image
+                attachments: [image, webpage] // Image & Webpage
             };
 
-            // send mail with defined transport object
+            // Send mail with defined transport object
             transporter.sendMail(mailOptions, function(error, info){
                 if(error){
                     console.log('Error sending email :(');
