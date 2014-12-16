@@ -28,12 +28,14 @@
 	<h1 class="header">Circles for Cities</h1>
 	<span class="caption">Create a useful report in just three simple steps.</span>
 
+    <!-- Map -->
 	<section id="map" class="slide">
 		<h2>1. Map</h2>
 		Please select your location on the map.
 
         <div id="map-wrapper">
             <div id="rightcol">
+                <!-- Map information -->
             	<div id="map-info"></div>
 
                 <table id="city-table">
@@ -49,92 +51,95 @@
             </div>
 
             <div id="centercol">
+                <!-- Map canvas -->
                 <div id="map-container">
                     <div id="map-canvas"></div>
                 </div>
 
+                <!-- Map options -->
                 <div>
-                	    <div id="nav">
-									      <div id="div_show_results">
-									        <div>Show results by:
-									        </div>
-									        <div>
-									          <select id="showResults" name="results">
-									            <option value="0">Homicide Rates (2013)</option>
-									            <option value="1">Fastest Growing Cities</option>
-									            <option value="2">Monocle's Most Livable City Index (2014) </option>
-									            <option value="3">The EIU's Liveability Ranking (2013)</option>
-									            <option value="4">Mercer Quality of Living Survey (2014)</option>
-									            <option value="5">UBS's Richest Cities (2012)</option>
-									            <option value="6">Siemen's Green Cities Index (2011)</option>
-									            <option value="7">Global Cities Index (2014)</option>
-									            <option value="8">Population - city proper (2014)</option>
-									            <option value="9">Population - urban area (2014)</option>
-									          </select>
-									        </div>
-									      </div>
-									      <div id="div_calc_results">
-									        <div>Calculate results by:
-									        </div>
-									        <div>
-									          <select id="calculateResults" name="calcResults">
-									            <option value="0">As is</option>
-									            <option value="1">Exponent of 2</option>
-									            <option value="2">Log</option>
-									          </select>
-									        </div>
-									      </div>
-									      <div id="div_size_of_heat_island">
-									        <div>Size of heat island:
-									        </div>
-									        <div>
-									          <select id="heatIsland" name="heatIsland">
-									            <option value="1">1</option>
-									            <option value="2">2</option>
-									            <option value="3">3</option>
-									            <option value="4">4</option>
-									            <option value="5">5</option>
-									          </select>
-									        </div>
-									      </div>
-									      <div id="div_opacity_of_heat_island">
-									        <div>Opacity of heat island:
-									        </div>
-									        <div>
-									          <select id="opacity" name="opacity">
-									            <option value="1" selected="selected">1</option>
-									            <option value="0.8">0.8</option>
-									            <option value="0.6">0.6</option>
-									            <option value="0.4">0.4</option>
-									            <option value="0.2">0.2</option>
-									          </select>
-									        </div>
-									      </div>
+                    <div id="nav">
+                      <div id="div_show_results">
+                        <div>Show results by:
+                        </div>
+                        <div>
+                          <select id="showResults" name="results">
+                            <option value="0">Homicide Rates (2013)</option>
+                            <option value="1">Fastest Growing Cities</option>
+                            <option value="2">Monocle's Most Livable City Index (2014) </option>
+                            <option value="3">The EIU's Liveability Ranking (2013)</option>
+                            <option value="4">Mercer Quality of Living Survey (2014)</option>
+                            <option value="5">UBS's Richest Cities (2012)</option>
+                            <option value="6">Siemen's Green Cities Index (2011)</option>
+                            <option value="7">Global Cities Index (2014)</option>
+                            <option value="8">Population - city proper (2014)</option>
+                            <option value="9">Population - urban area (2014)</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div id="div_calc_results">
+                        <div>Calculate results by:
+                        </div>
+                        <div>
+                          <select id="calculateResults" name="calcResults">
+                            <option value="0">As is</option>
+                            <option value="1">Exponent of 2</option>
+                            <option value="2">Log</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div id="div_size_of_heat_island">
+                        <div>Size of heat island:
+                        </div>
+                        <div>
+                          <select id="heatIsland" name="heatIsland">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div id="div_opacity_of_heat_island">
+                        <div>Opacity of heat island:
+                        </div>
+                        <div>
+                          <select id="opacity" name="opacity">
+                            <option value="1" selected="selected">1</option>
+                            <option value="0.8">0.8</option>
+                            <option value="0.6">0.6</option>
+                            <option value="0.4">0.4</option>
+                            <option value="0.2">0.2</option>
+                          </select>
+                        </div>
+                      </div>
 
-
-									      <div>
-									        <input id="showMarkers" type="checkbox" name="showMarkers">
-									        <span>Show Markers
-									        </span>
-									      </div>
-									      <div>
-									        <input id="showHeatmap" type="checkbox" name="showHeatmap" checked="checked">
-									        <span>Show Heat map
-									        </span>
-									      </div>
-									      <div>
-									        <input id="query" type="submit" name="query" value="Show Results">
-									      </div>
-									    </div>
+                      <div>
+                        <input id="showMarkers" type="checkbox" name="showMarkers">
+                        <span>Show Markers
+                        </span>
+                      </div>
+                      <div>
+                        <input id="showHeatmap" type="checkbox" name="showHeatmap" checked="checked">
+                        <span>Show Heat map
+                        </span>
+                      </div>
+                      <div>
+                        <input id="query" class="spaced" type="submit" name="query" value="Show Results">
+                      </div>
+                    </div>
                 </div>
             </div>
         </div>
 	</section>
 
+    <!-- Circle of Sustainability -->
 	<section id="circle" class="slide">
 		<h2>2. Circle</h2>
 		Create a Circle of Sustainability.
 
+        <!-- Dialog -->
 		<div id="circleDialog" style="display: none;">
 		    <div>
 		        <label for="circleDomain">Domain: </label>
@@ -178,15 +183,15 @@
 
 	</section>
 
+    <!-- Report -->
 	<section id="report" class="slide">
 		<h2>3. Report</h2>
-		Click the button to generate a report based on the map and circle above.
-		<button id="generate" onclick="_generate();">Generate</button>
-
-		<div id="result">
-			<textarea id="code"></textarea>
-			<button id="close" onclick="_close();">X</button>
-		</div>
+        Please fill in your e-mail address and then click on the "Submit" button.
+        
+        <form id="form">
+            <input id="receiver" class="spaced" type="email" name="receiver" placeholder="Your e-mail address" required>
+            <input id="generate" class="spaced" type="submit" name="submit" value="Send report">
+        </form>
 	</section>
 
 </body>

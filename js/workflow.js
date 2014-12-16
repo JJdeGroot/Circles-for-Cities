@@ -1,32 +1,37 @@
-/** Generates and shows the result */
-function _generate() {
-	// Construct URL
-	var receivers = "sustainabilitycircles2015@gmail.com";
-	var html = $("#rightcol").html();
-	var url = "mail?receivers=" + encodeURI(receivers) + "&html=" + encodeURI(html);
-	console.log("POST URL: " + url);
+$(document).ready(function() {
+    
+    // Email form
+    $('#form').on('submit', function(e) {
+        e.preventDefault();
+        
+        // Receiver
+        var receiver = $("#receiver").val();
+        console.log("Receiver : " + receiver);
+        if(receiver.length >= 3) {
+            // HTML
+            var html = $("#rightcol").html();
 
-	// Post the mail
-	$.post(url, function() {
-		alert( "success" );
-	}).fail(function() {
-		alert("failed");
-	});
+            // URL
+            var url = "mail?receiver=" + encodeURI(receiver) + "&html=" + encodeURI(html);
+            console.log("POST URL: " + url);
 
+            // Post the mail
+            $('#generate').attr('disabled', 'disabled').addClass('disabled').val("Sending report...");
+            $.post(url, function(data) {
+                console.log(data);
+                alert( "success" );
+                $('#generate').removeAttr('disabled').removeClass('disabled').val("Send report");
+            }).fail(function(data) {
+                console.log(data);
+                alert("failed");
+                $('#generate').removeAttr('disabled').removeClass('disabled').val("Send report");
+            });
 
-	// Show code
-	$("#code").text(html);
-	$("html, body").animate({ scrollTop: $(document).height() });
-	$("#result").show(500);
+            // Canvas to Image
+            var imageURL = document.getElementById('circleCanvas').toDataURL("image/png");
+            console.log(imageURL);
+            $("#report").append('<a href="'+imageURL+'" target="_blank">Download circle (right click --> save as)</a>');
+        }
+    });
 
-	// Canvas to Image
-	var imageURL = document.getElementById('circleCanvas').toDataURL("image/png");
-	console.log(imageURL);
-	$("#result").append('<a href="'+imageURL+'" target="_blank">Download circle (right click --> save as)</a>');
-
-}
-
-/** Closes the result div */
-function _close() {
-	$("#result").hide(500);
-}
+});

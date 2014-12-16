@@ -226,11 +226,17 @@ var displayInfo = function(data) {
     if(point !== undefined) {
         addInfo("Lat/Long: " + point);
     }
+    
+    var population = data["populationTotal"];
+    if(population !== undefined) {
+        addInfo("Population: " + population);
+    }
 
     var abstract = data["abstract"];
     if(abstract !== undefined) {
-        addInfo(abstract);
+        addInfo("<span style='margin-top: 20px'>"+abstract+"</span>");
     }
+    
 }
     
 

@@ -46,6 +46,9 @@ button:hover {
 	background-color: #ddd;
 }
 
+.disabled, .disabled:hover {
+    background-color: #000 !important;
+}
 
 /* Slides */
 .slide {
@@ -76,35 +79,8 @@ button:hover {
 	border: 2px solid rgba(0, 0, 0, 0.2);
 }
 
-#generate {
-	width: 25%;
-
-	margin-top: 5px;
-	padding: 5px;
-	border-radius: 5px;
-	
-	display: block;
-	background-color: #383;
-	color: #fff;
-}
-#generate:hover {
-	background-color: #3a3;
-}
-
-#code {
-	width: 100%;
-	max-width: 100%;
-	height: 100%;
-}
-
-#close {
-	position: absolute;
-	right: 0;
-	top: 0;
-
-	background-color: #a00;
-	color: #fff;
-}
-#close:hover {
-	background-color: c00;
+/** Receiver */
+#receiver {
+    width: 25%;
+    padding: 5px;
 }

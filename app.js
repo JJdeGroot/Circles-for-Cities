@@ -25,10 +25,10 @@ app.post('/mail', function (req, res) {
     // setup e-mail data with unicode symbols
 	var mailOptions = {
 	    from: 'Circles of Sustainability <sustainabilitycircles2015@gmail.com>', // sender address
-	    to: req.query.receivers, // list of receivers
-	    subject: 'Circles of Sustainability report', // Subject line
-	    text: 'Plain text', // plaintext body
-	    html: req.query.html // html body
+	    to: req.query.receiver, // The receiver
+	    subject: 'Your Circles of Sustainability report', // Subject
+	    text: 'Plain text', // Plaintext body
+	    html: req.query.html // HTML body
 	};
 
 	// send mail with defined transport object
@@ -39,7 +39,6 @@ app.post('/mail', function (req, res) {
 	        res.send(error);
 	    }else{
 	        console.log('Message sent successfully :)');
-	        console.log(info);
 	        res.send(info);
 	    }
 	});
