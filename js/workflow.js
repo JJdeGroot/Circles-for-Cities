@@ -8,25 +8,23 @@ $(document).ready(function() {
         var receiver = $("#receiver").val();
         console.log("Receiver : " + receiver);
         if(receiver.length >= 3) {
-            // HTML
-            var html = $("#rightcol").html();
-
-            // URL
-            var url = "mail?receiver=" + encodeURI(receiver) + "&html=" + encodeURI(html);
-            console.log("POST URL: " + url);
-
-            // Post the mail
+            // Get HTML
             $('#generate').attr('disabled', 'disabled').addClass('disabled').val("Sending report...");
-            $.post(url, function(data) {
-                console.log(data);
-                alert( "success" );
+            var html = $("#rightcol").html();
+            
+            // Request
+            var request = $.ajax({
+              url: "mail",
+              type: "POST",
+              data: { receiver: receiver, html: html }
+            }).done(function( msg ) {
+                alert("Email has beent sent succesfully!");
                 $('#generate').removeAttr('disabled').removeClass('disabled').val("Send report");
-            }).fail(function(data) {
-                console.log(data);
-                alert("failed");
+            }).fail(function( jqXHR, textStatus ) {
+                alert( "Request failed: " + textStatus );
                 $('#generate').removeAttr('disabled').removeClass('disabled').val("Send report");
             });
-
+  
             // Canvas to Image
             var imageURL = document.getElementById('circleCanvas').toDataURL("image/png");
             console.log(imageURL);
