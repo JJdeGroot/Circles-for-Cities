@@ -11,7 +11,7 @@ $(document).ready(function() {
             $('#generate').attr('disabled', 'disabled').addClass('disabled').val("Sending report...");
 
             // Generate HTML
-            var html = $("#rightcol").html();
+            var html = $("#rightcol").html() + $('#city-table').html();
             var imageURL = document.getElementById('circleCanvas').toDataURL("image/png");
             
             // Perform request
