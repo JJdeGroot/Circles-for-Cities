@@ -4,19 +4,22 @@ $(document).ready(function() {
     $('#form').on('submit', function(e) {
         e.preventDefault();
         
-        // Receiver
+        // Check receiver email address
         var receiver = $("#receiver").val();
         console.log("Receiver : " + receiver);
-        if(receiver.length >= 3) {
-            // Get HTML
+        if(receiver.length >= 3 && /\S+@\S+\.\S+/.test(receiver)) {
             $('#generate').attr('disabled', 'disabled').addClass('disabled').val("Sending report...");
-            var html = $("#rightcol").html();
+
+            // Generate HTML
+            var info = $("#rightcol").html();
+            var html = "<html><body><div>"+info+"</div></body></html>";
+            var imageURL = document.getElementById('circleCanvas').toDataURL("image/png");
             
-            // Request
+            // Perform request
             var request = $.ajax({
               url: "mail",
               type: "POST",
-              data: { receiver: receiver, html: html }
+              data: { receiver: receiver, html: html, image: imageURL },
             }).done(function( msg ) {
                 alert("Email has beent sent succesfully!");
                 $('#generate').removeAttr('disabled').removeClass('disabled').val("Send report");
@@ -24,21 +27,10 @@ $(document).ready(function() {
                 alert( "Request failed: " + textStatus );
                 $('#generate').removeAttr('disabled').removeClass('disabled').val("Send report");
             });
-  
-            // Canvas to Image
-            var imageURL = document.getElementById('circleCanvas').toDataURL("image/png");
-            console.log(imageURL);
-            $("#report").append('<a href="'+imageURL+'" target="_blank">Download circle (right click --> save as)</a>');
+        }else{
+            // Receiver email check returned false.
+            alert("Invalid e-mail address");
         }
     });
 
 });
-
-// Extension to JQuery for URL param extraction - taken from: http://www.sitepoint.com/url-parameters-jquery/
-$.urlParam = function(name){
-    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-    if ( results == null ) 
-       return undefined;
-    else 
-       return results[1] || 0;
-}
